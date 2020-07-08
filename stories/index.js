@@ -10,6 +10,16 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerList from "components/InterviewerList";
 import InterviewerListItem from "components/InterviewerListItem";
+// import Appointment from "components/Appointment/index";
+// import Appointment from "components/Appointment/index";
+import Appointment from "components/Appointment";
+import Header from "components/Appointment/Header";
+import Empty from "components/Appointment/Empty";
+// import Show from "components/Appointment/Show";
+// import Confirm from "components/Appointment/Confirm";
+// import Status from "components/Appointment/Status";
+// import Error from "components/Appointment/Error";
+// import Form from "components/Appointment/Form";
 
 storiesOf("Button", module)
   .addParameters({
@@ -120,13 +130,21 @@ storiesOf("InterviewerListItem", module)
     .add("Initial", () => (
       <InterviewerList
         interviewers={interviewers}
-        setInterviewer={action("setInterviewer")}
+        onChange={action("onChange")}
       />
     ))
     .add("Preselected", () => (
       <InterviewerList
         interviewers={interviewers}
         interviewer={3}
-        setInterviewer={action("setInterviewer")}
+        onChange={action("onChange")}
       />
     ));
+
+storiesOf("Appointment", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Header", () => <Header time="12pm" />)
+  .add("Empty", () => <Empty onAdd={action("onAdd")}/>)
