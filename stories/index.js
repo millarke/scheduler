@@ -17,8 +17,8 @@ import Header from "components/Appointment/Header";
 import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
-// import Status from "components/Appointment/Status";
-// import Error from "components/Appointment/Error";
+import Status from "components/Appointment/Status";
+import Error from "components/Appointment/Error";
 // import Form from "components/Appointment/Form";
 
 storiesOf("Button", module)
@@ -155,9 +155,5 @@ storiesOf("Appointment", module)
     onDelete={action("onDelete")} 
     />)
   .add("Confirm", () => <Confirm message="Delete the appointment?" onConfirm={action("onConfirm")} onCancel={action("onCancel")} />)
-// interviewer={interviewers[0]} 
-
-//   student:String eg. "Lydia Miller-Jones"
-// interviewer:Object we can use the interview object that already exists in stories/index.js for this
-// onEdit:Function to be called when the user clicks the Edit button
-// onDelete:Function to be called when the user clicks the Delete button
+  .add("Status", () => <Status message="Deleting"/>)
+  .add("Error", () => <Error message="Could not delete appointment" onClose={action("onClose")}/>)
