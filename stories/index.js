@@ -16,7 +16,7 @@ import Appointment from "components/Appointment";
 import Header from "components/Appointment/Header";
 import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
-// import Confirm from "components/Appointment/Confirm";
+import Confirm from "components/Appointment/Confirm";
 // import Status from "components/Appointment/Status";
 // import Error from "components/Appointment/Error";
 // import Form from "components/Appointment/Form";
@@ -154,6 +154,7 @@ storiesOf("Appointment", module)
     onEdit={action("onEdit")}
     onDelete={action("onDelete")} 
     />)
+  .add("Confirm", () => <Confirm message="Delete the appointment?" onConfirm={action("onConfirm")} onCancel={action("onCancel")} />)
 // interviewer={interviewers[0]} 
 
 //   student:String eg. "Lydia Miller-Jones"
