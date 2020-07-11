@@ -5,9 +5,56 @@ import DayList from "components/DayList";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
 import DayListItem from "components/DayListItem";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Appointment from "components/Appointment";
+import axios from "axios";
 
-
+const appointments = [
+  {
+    id: 1,
+    time: "12pm",
+  },
+  {
+    id: 2,
+    time: "1pm",
+    interview: {
+      student: "Lydia Miller-Jones",
+      interviewer: {
+        id: 1,
+        name: "Sylvia Palmer",
+        avatar: "https://i.imgur.com/LpaY82x.png",
+      }
+    }
+  },
+  {
+    id: 3,
+    time: "2pm",
+  },
+  {
+    id: 4,
+    time: "3pm",
+    interview: {
+      student: "Keith Millar",
+      interviewer: {
+        id: 1,
+        name: "Sylvia Palmer",
+        avatar: "https://i.imgur.com/LpaY82x.png",
+      }
+    }
+  },
+  {
+    id: 5,
+    time: "4pm",
+    interview: {
+      student: "Corey Hennessy",
+      interviewer: {
+        id: 1,
+        name: "Sylvia Palmer",
+        avatar: "https://i.imgur.com/LpaY82x.png",
+      }
+    }
+  }
+];
 
 const days = [
   {
@@ -55,6 +102,12 @@ const [day, setDay] = useState("Monday");
       </section>
       <section className="schedule">
         {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {/* <Appointment key={appointment.id} {...appointment} /> */}
+        {appointments.map(appointment => 
+      <Appointment
+        key={appointment.id}   {...appointment} 
+      />)}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
