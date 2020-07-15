@@ -34,13 +34,10 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
-
-  // console.log("appointments ln.41", appointments);
-
-
 
   const setDay = day => setState({...state, day});
   // const setDays = days => setState(prev => ({...prev, days}));
@@ -53,10 +50,8 @@ export default function Application(props) {
     const newAptObj = { ...state.appointments[id], interview };
     const newAppointments = { ...state.appointments, [id]: newAptObj}
 
- 
     // console.log("state: ", state)
     // console.log("newAppointments: ", newAppointments)
-
     return (
       axios.put(`/api/appointments/${id}`, newAptObj)
         .then(function (response) {
@@ -67,9 +62,26 @@ export default function Application(props) {
             });
         })
     )
-
   }
   /////////
+
+  function cancelInterview(id) {
+    console.log("testing if hit!", id)
+    const appointment = { ...state.appointments[id], interview: null };
+    const appointments = { ...state.appointments, [id]: appointment };
+
+    return (
+      axios.delete(`/api/appointments/${id}`)
+        .then((response) => {
+          console.log("response: ", response);
+          setState({
+            ...state,
+            appointments
+          })
+        })
+        // )
+    )
+  }
 
   useEffect(() => {
     Promise.all([
@@ -84,7 +96,6 @@ export default function Application(props) {
     }, []
   )
   
-  // console.log("2555552525552: ", state.appointments)
 
   return (
     <main className="layout">
