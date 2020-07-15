@@ -1,5 +1,3 @@
-// import React from "react";
-
 import "components/Application.scss";
 import DayList from "components/DayList";
 import { action } from "@storybook/addon-actions";
@@ -9,53 +7,6 @@ import React, { useState, useEffect } from "react";
 import Appointment from "components/Appointment";
 import axios from "axios";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors.js"
-
-// const appointments = [
-//   {
-//     id: 1,
-//     time: "12pm",
-//   },
-//   {
-//     id: 2,
-//     time: "1pm",
-//     interview: {
-//       student: "Lydia Miller-Jones",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   },
-//   {
-//     id: 3,
-//     time: "2pm",
-//   },
-//   {
-//     id: 4,
-//     time: "3pm",
-//     interview: {
-//       student: "Keith Millar",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   },
-//   {
-//     id: 5,
-//     time: "4pm",
-//     interview: {
-//       student: "Corey Hennessy",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   }
-// ];
 
 
 export default function Application(props) {
@@ -68,8 +19,11 @@ export default function Application(props) {
   });
 
   const appointments = getAppointmentsForDay(state, state.day);
+  // console.log("appointments ln.22", appointments);
+  const interviewers = getInterviewersForDay(state, state.day);
+  // console.log("appointments ln.23", appointments);
+
   const schedule = appointments.map((appointment) => {
-    // console.log("ababababddbadababdaa")
     const interview = getInterview(state, appointment.interview);
 
     return (
@@ -78,15 +32,44 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });
+
+  // console.log("appointments ln.41", appointments);
+
+
 
   const setDay = day => setState({...state, day});
   // const setDays = days => setState(prev => ({...prev, days}));
   const setAppointments = appointments => setState(prev => ({...prev, appointments}));
 
+  /////////
+  function bookInterview(id, interview) {
+    console.log("id, interview: ", id, interview);
+    
+    const newAptObj = { ...state.appointments[id], interview };
+    const newAppointments = { ...state.appointments, [id]: newAptObj}
 
+ 
+    // console.log("state: ", state)
+    // console.log("newAppointments: ", newAppointments)
+
+    return (
+      axios.put(`/api/appointments/${id}`, newAptObj)
+        .then(function (response) {
+          console.log(response);
+            setState({
+              ...state,
+              appointments: newAppointments
+            });
+        })
+    )
+
+  }
+  /////////
 
   useEffect(() => {
     Promise.all([
@@ -94,34 +77,14 @@ export default function Application(props) {
       axios.get(`/api/appointments`),
       axios.get(`/api/interviewers`)
     ]).then((all) => {
-      // console.log("111111111111: ", all[0]); // first
-      // console.log("222222222222: ", all[1]); // second
-    
       const [days, appointments, interviewers] = all;
-    
-      console.log("333333: ", days.data, appointments.data, interviewers.data);
-
-      // setState({ ...state, days: all[0].data, appointments: all[1].data});
+      console.log("useEffect")
       setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}));
-    
-    
-    
-    
-    
     });
-
-      // axios.get(`/api/days`)
-      //   .then(response => setDays(response.data))
-      //   // .then(response => console.log(response.data.results))
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   })
-
-
     }, []
   )
   
-  console.log("2555552525552: ", state.appointments)
+  // console.log("2555552525552: ", state.appointments)
 
   return (
     <main className="layout">
@@ -154,8 +117,3 @@ export default function Application(props) {
     </main>
   );
 }
-
-// {(appointments).map(appointment => 
-//   <Appointment
-//     key={appointment.id}   {...appointment} 
-//   />)}

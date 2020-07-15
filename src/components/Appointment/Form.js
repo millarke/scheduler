@@ -4,8 +4,6 @@ import InterviewerList from "components/InterviewerList";
 // import InterviewerListItem from "./InterviewerListItem"
 
 
-
-
 export default function Form(props) {
 
   const [name, setName] = useState(props.name || "");
