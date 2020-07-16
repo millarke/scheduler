@@ -31,7 +31,7 @@ export default function useVisualMode(initial) {
       const tempHistory = [...history];
       tempHistory.pop();
       setHistory(tempHistory);
-      console.log(tempHistory);
+      // console.log(tempHistory);
       setMode(tempHistory[tempHistory.length - 1]);
     }
   };

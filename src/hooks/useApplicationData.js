@@ -54,7 +54,7 @@ export default function useApplicationData() {
     return (
       axios.put(`/api/appointments/${id}`, newAptObj)
         .then(function (response) {
-          console.log(response);
+          // console.log(response);
             setState({
               ...state,
               appointments: newAppointments,
@@ -81,7 +81,7 @@ export default function useApplicationData() {
     return (
       axios.delete(`/api/appointments/${id}`)
         .then((response) => {
-          console.log("response: ", response);
+          // console.log("response: ", response);
           setState({
             ...state,
             appointments,
@@ -101,7 +101,7 @@ export default function useApplicationData() {
       axios.get(`/api/interviewers`)
     ]).then((all) => {
       const [days, appointments, interviewers] = all;
-      console.log("useEffect")
+      // console.log("useEffect")
       setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}));
     });
     }, []

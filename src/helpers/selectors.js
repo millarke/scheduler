@@ -17,7 +17,7 @@ export function getAppointmentsForDay(state, day) {
       // const dayObjectApps = dayObject.appointments;
       const apmt = [];
       const apmtObj = dayObj[0].appointments
-      console.log("apmtObj: ", apmtObj)
+      // console.log("apmtObj: ", apmtObj)
       // const apmtObj = state.appointments
       apmtObj.forEach(id => {
         apmt.push(state.appointments[id])
@@ -53,7 +53,7 @@ export function getInterviewersForDay(state, day) {
     if (dayObj.length > 0) {
       const intr = [];
       const intrObj = dayObj[0].interviewers
-      console.log("dayObj: ", dayObj)
+      // console.log("dayObj: ", dayObj)
       intrObj.forEach(id => {
         intr.push(state.interviewers[id])
       })
