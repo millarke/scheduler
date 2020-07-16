@@ -3,6 +3,15 @@ import "components/InterviewerList.scss"
 import InterviewerListItem from "./InterviewerListItem"
 import classnames from "classnames"
 
+/////
+// TODO - this might have cause everything to crash earlier, unknown at this point
+import PropTypes from 'prop-types';
+InterviewerList.propTypes = {
+  value: PropTypes.number,
+  onChange: PropTypes.func.isRequired
+};
+
+/////
 
 export default function InterviewerList(props) {
 
