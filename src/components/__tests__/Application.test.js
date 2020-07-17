@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup, waitForElement, fireEvent, getByText, queryByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, queryByAltText } from "@testing-library/react";
+import { render, cleanup, waitForElement, fireEvent, getByText, queryByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, queryByAltText, getByTestId } from "@testing-library/react";
 import Application from "components/Application";
 import axios from "axios";
 import Appointment from "components/Appointment";
@@ -94,14 +94,21 @@ it("loads data, cancels an interview and increases the spots remaining for Monda
     const { container, debug } = render(<Application />);
     // const { container, debug } = render(<Application />);
 
+    
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
+    
+    { const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument(); }
 
     // 3. Click the edit button
     const appointment = getAllByTestId(container, "appointment").find(
       appointment => queryByText(appointment, "Archie Cohen")
-    );
-  
+      );
+
+    // console.log(getByTestId(appointment, "appointment-edit"));
+    fireEvent.click(getByTestId(appointment, "appointment-edit"));
+      
     // 4. CHange student name or interviewer
     // TODO  //////////////////////////////////////////////////////
     // const testConst = (getAllByTestId(container, "student-name-input")).find(
@@ -114,24 +121,24 @@ it("loads data, cancels an interview and increases the spots remaining for Monda
     //   target: { value: "Keith" }
     // });
 
-    // fireEvent.change(getAllByTestId(container, "student-name-input"), {
-    //   target: { value: "Keith" }
-    // });
+    fireEvent.change(getByTestId(container, "student-name-input"), {
+      target: { value: "Keith" }
+    });
     ///////////////////// TODO ABOVE //////////////////////////
 
-    // // 6. Click the "Save" button on that same appointment.
-    // fireEvent.click(getByText(appointment, "Save"));
+    // 6. Click the "Save" button on that same appointment.
+    fireEvent.click(getByText(appointment, "Save"));
 
-    // // 7. Check that the element with the text "Saving" is displayed.
-    // expect(getByText(appointment, "Saving")).toBeInTheDocument();
+    // 7. Check that the element with the text "Saving" is displayed.
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
-    // // 8. Wait until new element is displayed (whichever is changed)
-    // // TODO
-    // await waitForElement(() => getByText(appointment, "Keith"));
+    // 8. Wait until new element is displayed (whichever is changed)
+    // TODO
+    await waitForElement(() => getByText(appointment, "Keith"));
 
-    // // 9. Check that the DayListItem with the text "Monday" says 1 spot remaining
-    // const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
-    // expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+    // 9. Check that the DayListItem with the text "Monday" says 1 spot remaining
+    const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
 
   });
 

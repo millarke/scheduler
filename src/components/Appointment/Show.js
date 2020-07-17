@@ -18,6 +18,7 @@ export default function Show(props) {
             className="appointment__actions-button"
             src="images/edit.png"
             alt="Edit"
+            data-testid="appointment-edit"
             onClick={props.onEdit}
           />
           <img
