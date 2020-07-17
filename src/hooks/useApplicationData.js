@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { getAppointmentsForDay } from "../helpers/selectors"
 
 export default function useApplicationData() {
 
@@ -10,26 +11,6 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
-  // const appointments = getAppointmentsForDay(state, state.day);
-  // // console.log("appointments ln.22", appointments);
-  // const interviewers = getInterviewersForDay(state, state.day);
-  // // console.log("appointments ln.23", appointments);
-
-  // const schedule = appointments.map((appointment) => {
-  //   const interview = getInterview(state, appointment.interview);
-
-  //   return (
-  //     <Appointment
-  //       key={appointment.id}
-  //       id={appointment.id}
-  //       time={appointment.time}
-  //       interview={interview}
-  //       interviewers={interviewers}
-  //       bookInterview={bookInterview}
-  //       cancelInterview={cancelInterview}
-  //     />
-  //   );
-  // });
 
   const setDay = day => setState({...state, day});
   // const setDays = days => setState(prev => ({...prev, days}));
@@ -43,7 +24,8 @@ export default function useApplicationData() {
     const newAppointments = { ...state.appointments, [id]: newAptObj}
     const newDays = state.days.map(day => {
       if (state.day === day.name) {
-        return { ...day, spots: day.spots - 1}
+        
+        return { ...day, spots: getAppointmentsForDay({ ...state, appointments: newAppointments }, day.name).filter(apt => !apt.interview).length}
       } else {
         return day
       }
@@ -55,11 +37,11 @@ export default function useApplicationData() {
       axios.put(`/api/appointments/${id}`, newAptObj)
         .then(function (response) {
           // console.log(response);
-            setState({
+            setState(state => ({
               ...state,
               appointments: newAppointments,
               days: newDays
-            });
+            }));
         })
     )
   }
@@ -77,17 +59,16 @@ export default function useApplicationData() {
       }
     })
 
-
     return (
       axios.delete(`/api/appointments/${id}`)
         .then((response) => {
           // console.log("response: ", response);
-          setState({
+          setState(state => ({
             ...state,
             appointments,
             days: newDays
 
-          })
+          }))
         })
         // )
     )
