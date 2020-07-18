@@ -35,11 +35,6 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-      // console.log("!!!!!!!!!!!!!!")
-      // console.log("props.bookInterview(props.id, interview): ", props.bookInterview(props.id, interview))
-      // console.log("interview: ", interview)
-      // console.log("props.id: ", props.id)
-      // transition(SHOW)
       transition(SAVING);
       
       props.bookInterview(props.id, interview)
@@ -48,7 +43,6 @@ export default function Appointment(props) {
   }
 
   function destroy(event) {
-    // console.log("event: ", event)
     transition(DELETING, true);
     props.cancelInterview(props.id)
     .then(() => transition(EMPTY))
@@ -56,7 +50,6 @@ export default function Appointment(props) {
   }
 
   return (
-    
     <>
       <Header time={props.time} />
       <article className="appointment" data-testid="appointment">
@@ -103,28 +96,5 @@ export default function Appointment(props) {
           />)}
       </article>
     </>
-
-  )};
-
-// return (
-//   <>
-//   {props.interview ? 
-//   <>
-//      <Header time={props.time} />
-//      <article className="appointment">
-//        <Show 
-//         student={props.interview.student}
-//         interviewer={props.interview.interviewer}
-//       />
-//     </article>
-//     </>
-//     :
-//     <>
-//      <Header time={props.time} />
-//      <article className="appointment">
-//        <Empty />
-//      </article>
-//      </>
-// }
-//   </>
-// ) 
+  )
+};

@@ -8,9 +8,7 @@ export default function Form(props) {
   
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  
   const [error, setError] = useState("");
-  
   
   const reset = () => {
     setName("");
@@ -42,9 +40,6 @@ export default function Form(props) {
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            /*
-              This must be a controlled component
-            */
             onChange={(event) => setName(event.target.value)}
             value={name}
             data-testid="student-name-input"
