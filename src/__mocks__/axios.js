@@ -54,9 +54,8 @@ const fixtures = {
 };
 
 export default {
-  // TODO the tests were passing without this defaults: line, but it was recommended to use to fix issues some people may have, so i'm putting it in here as it doesn't break anything by being here otherwise.
   defaults: { baseURL: "" },
-  ////
+  
   get: jest.fn(url => {
     if (url === "/api/days") {
       return Promise.resolve({

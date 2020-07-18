@@ -11,14 +11,13 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
-
   const setDay = day => setState({...state, day});
-  // const setDays = days => setState(prev => ({...prev, days}));
+  
   const setAppointments = appointments => setState(prev => ({...prev, appointments}));
 
   /////////
   function bookInterview(id, interview) {
-    // console.log("id, interview: ", id, interview);
+    
     
     const newAptObj = { ...state.appointments[id], interview };
     const newAppointments = { ...state.appointments, [id]: newAptObj}
@@ -31,12 +30,11 @@ export default function useApplicationData() {
       }
     })
 
-    // console.log("state: ", state)
-    // console.log("newAppointments: ", newAppointments)
+
     return (
       axios.put(`/api/appointments/${id}`, newAptObj)
         .then(function (response) {
-          // console.log(response);
+        
             setState(state => ({
               ...state,
               appointments: newAppointments,
@@ -48,7 +46,6 @@ export default function useApplicationData() {
   /////////
 
   function cancelInterview(id) {
-    // console.log("testing if hit!", id)
     const appointment = { ...state.appointments[id], interview: null };
     const appointments = { ...state.appointments, [id]: appointment };
     const newDays = state.days.map(day => {
@@ -62,7 +59,6 @@ export default function useApplicationData() {
     return (
       axios.delete(`/api/appointments/${id}`)
         .then((response) => {
-          // console.log("response: ", response);
           setState(state => ({
             ...state,
             appointments,
@@ -70,7 +66,6 @@ export default function useApplicationData() {
 
           }))
         })
-        // )
     )
   }
 
@@ -82,7 +77,6 @@ export default function useApplicationData() {
       axios.get(`/api/interviewers`)
     ]).then((all) => {
       const [days, appointments, interviewers] = all;
-      // console.log("useEffect")
       setState(prev => ({ ...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}));
     });
     }, []

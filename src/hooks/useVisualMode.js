@@ -1,17 +1,5 @@
 import { useState } from 'react';
 
-//////// OLD wrong but passed first test
-
-// export default function useVisualMode(initial) {
-//   const modeObj = {}
-  
-//   modeObj.mode = initial;
-
-//   return modeObj;
-// }
-
-//////// CURRENT
-
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
@@ -31,7 +19,6 @@ export default function useVisualMode(initial) {
       const tempHistory = [...history];
       tempHistory.pop();
       setHistory(tempHistory);
-      // console.log(tempHistory);
       setMode(tempHistory[tempHistory.length - 1]);
     }
   };

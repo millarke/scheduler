@@ -1,22 +1,6 @@
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 const state = {
-  // days: [
-  //   {
-  //     id: 1,
-  //     name: "Monday",
-  //     appointments: [1, 2, 3],
-  //     interviewers: [1]
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Tuesday",
-  //     appointments: [4, 5],
-  //     interviewers: [1]
-
-  //   }
-  // ],
-
 
   days: [
     {
@@ -134,6 +118,3 @@ test("getInterviewersForDay returns an empty array when the day is not found", (
   const result = getInterviewersForDay(state, "Wednesday");
   expect(result.length).toEqual(0);
 });
-
-
-
