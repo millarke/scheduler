@@ -18,7 +18,6 @@ export default function useApplicationData() {
   /////////
   function bookInterview(id, interview) {
     
-    
     const newAptObj = { ...state.appointments[id], interview };
     const newAppointments = { ...state.appointments, [id]: newAptObj}
     const newDays = state.days.map(day => {
@@ -29,7 +28,6 @@ export default function useApplicationData() {
         return day
       }
     })
-
 
     return (
       axios.put(`/api/appointments/${id}`, newAptObj)
@@ -68,7 +66,6 @@ export default function useApplicationData() {
         })
     )
   }
-
 
   useEffect(() => {
     Promise.all([

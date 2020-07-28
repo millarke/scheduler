@@ -61,37 +61,37 @@ export default function Appointment(props) {
           />
         )}
         {mode === CREATE && <Form
-            interviewers={ props.interviewers }
-            onSave={ save }
-            onCancel={ () => back() }
-          />}
+          interviewers={ props.interviewers }
+          onSave={ save }
+          onCancel={ () => back() }
+        />}
         {mode === SAVING && (<Status
-            message="Saving" 
-          />)}
+          message="Saving" 
+        />)}
         {mode === DELETING && (<Status
-            message="Deleting"
-          />)}
+          message="Deleting"
+        />)}
         {mode === CONFIRM && (<Confirm 
-            message="Are you sure you would like to delete?"
-            id = { props.id }
-            onConfirm={ destroy }
-            onCancel={() => back()}
-          />)}
+          message="Are you sure you would like to delete?"
+          id = { props.id }
+          onConfirm={ destroy }
+          onCancel={() => back()}
+        />)}
         {mode === EDIT && (<Form 
-            name={ props.interview.student }
-            interviewer={ props.interview.interviewer.id }
-            interviewers={ props.interviewers }
-            onSave={ save }
-            onCancel={ () => back() }
-          />)}
+          name={ props.interview.student }
+          interviewer={ props.interview.interviewer.id }
+          interviewers={ props.interviewers }
+          onSave={ save }
+          onCancel={ () => back() }
+        />)}
         {mode === ERROR_SAVE && (<Error
-            message="Could not save appointment."
-            onClose={() => back()}
-          />)}
+          message="Could not save appointment."
+          onClose={() => back()}
+        />)}
         {mode === ERROR_DELETE && (<Error
-            message="Could not delete appointment."
-            onClose={() => back()}
-          />)}
+          message="Could not delete appointment."
+          onClose={() => back()}
+        />)}
       </article>
     </>
   )
